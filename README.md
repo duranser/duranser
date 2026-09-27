@@ -1,5 +1,8 @@
 ## Technical Documents 
 
-- [CNN-based Super Resolution](./docs/cnn-based-super-resolution.md)
-- [CNN Hardware Acceleration](./docs/cnn-hardware-acceleration.md)
-- [Dynamic Quantization](./docs/dynamic-quantization.md)
+- **CNN Hardware Acceleration**
+  - [Parallel MAC/PE Array Design](./docs/parallel-mac-pe-array-design.md)
+  - [Dataflow and Data Reuse](./docs/dataflow-data-reuse.md)
+  - [Loop Pipelining](./docs/throughput-loop-pipelining.md)
+  - [Loop Tiling](./docs/throughput-loop-tiling.md)
+  
