@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use the technical documentation or original figures in this repository, please cite it as below."
+
+title: "CNN Hardware Acceleration: Technical Documentation"
+authors:
+  - family-names: "Duran"
+    given-names: "Serdar"
+
+repository-code: "https://github.com/duranser/duranser"
+
+license: "CC-BY-4.0"
