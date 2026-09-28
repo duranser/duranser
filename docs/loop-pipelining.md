@@ -122,9 +122,15 @@ $$
 
 iterations per second.
 
+Thus, an $II$ of one provides the maximum iteration rate for a given clock
+frequency. Increasing the initiation interval reduces the rate at which new
+iterations can enter the pipeline.
+
 However, achieving $II = 1$ is not always possible. The achievable initiation interval depends on the structure of the loop and 
-the underlying hardware architecture. Data dependencies, memory-access constraints, 
-and limited hardware resources may prevent a new iteration from starting every clock cycle.
+the underlying hardware architecture. Loop-carried dependencies, insufficient memory-access bandwidth,
+resource conflicts, and irregular control flow can restrict pipeline
+parallelism and increase the minimum achievable initiation interval.
+
 
 ## 1. Loop-Carried Dependencies
 
@@ -152,7 +158,7 @@ Typical examples include:
 - conflicting array accesses.
 
 
-## 3. Resource Sharing
+## 3. Resource Conflicts
 
 If multiple operations require the same arithmetic resource during overlapping iterations, they cannot execute concurrently unless additional hardware resources are provided. Therefore, the synthesis tool may schedule them across different cycles.
 
