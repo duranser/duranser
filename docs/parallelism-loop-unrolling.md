@@ -218,24 +218,13 @@ the corresponding bias is added and the activation function is applied.
 
 ## References
 
-[1] V. Sze, Y.-H. Chen, T.-J. Yang, and J. S. Emer,  
-“Efficient Processing of Deep Neural Networks: A Tutorial and Survey,”  
-*Proceedings of the IEEE*, vol. 105, no. 12, pp. 2295–2329, 2017.
+[1] V. Sze, Y.-H. Chen, T.-J. Yang, and J. S. Emer, “Efficient Processing of Deep Neural Networks: A Tutorial and Survey,” *Proceedings of the IEEE*, vol. 105, no. 12, pp. 2295–2329, 2017.
 
-[2] C. Zhang, P. Li, G. Sun, Y. Guan, B. Xiao, and J. Cong,  
-“Optimizing FPGA-Based Accelerator Design for Deep Convolutional Neural Networks,”  
-in *Proceedings of the ACM/SIGDA International Symposium on Field-Programmable Gate Arrays (FPGA)*,  
-Monterey, CA, USA, pp. 161–170, 2015.
+[2] C. Zhang, P. Li, G. Sun, Y. Guan, B. Xiao, and J. Cong, “Optimizing FPGA-Based Accelerator Design for Deep Convolutional Neural Networks,” in *Proceedings of the ACM/SIGDA International Symposium on Field-Programmable Gate Arrays (FPGA)*, Monterey, CA, USA, pp. 161–170, 2015.
 
-[3] Y. Ma, Y. Cao, S. Vrudhula, and J. Seo,  
-“Optimizing the Convolution Operation to Accelerate Deep Neural Networks on FPGA,”  
-*IEEE Transactions on Very Large Scale Integration (VLSI) Systems*,  
-vol. 26, no. 7, pp. 1354–1367, 2018.
+[3] Y. Ma, Y. Cao, S. Vrudhula, and J. Seo, “Optimizing the Convolution Operation to Accelerate Deep Neural Networks on FPGA,” *IEEE Transactions on Very Large Scale Integration (VLSI) Systems*, vol. 26, no. 7, pp. 1354–1367, 2018.
 
-[4] J. Qiu, J. Wang, S. Yao, K. Guo, B. Li, E. Zhou, J. Yu, T. Tang, N. Xu, S. Song, Y. Wang, and H. Yang,  
-“Going Deeper with Embedded FPGA Platform for Convolutional Neural Network,”  
-in *Proceedings of the ACM/SIGDA International Symposium on Field-Programmable Gate Arrays (FPGA)*,  
-pp. 26–35, 2016.
+[4] J. Qiu, J. Wang, S. Yao, K. Guo, B. Li, E. Zhou, J. Yu, T. Tang, N. Xu, S. Song, Y. Wang, and H. Yang, “Going Deeper with Embedded FPGA Platform for Convolutional Neural Network,” in *Proceedings of the ACM/SIGDA International Symposium on Field-Programmable Gate Arrays (FPGA)*, pp. 26–35, 2016.
 
 
 
