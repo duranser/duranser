@@ -167,7 +167,8 @@ Examples include shared:
 
 ## 4. Control Flow
 
-Branches inside a loop may create different execution paths:
+Conditional statements inside a loop may cause different iterations to follow different execution paths. 
+In a hardware implementation, these paths are typically represented by conditional datapaths, multiplexers, enable signals, and associated control logic [1].
 
 ```cpp
 for (int i = 0; i < N; i++) {
@@ -178,7 +179,9 @@ for (int i = 0; i < N; i++) {
 }
 ```
 
-The synthesis tool may still pipeline such a loop, but complicated control flow can increase muxing, routing, resource use, and scheduling difficulty.
+Such control flow does not necessarily prevent the loop from being pipelined. However, complex conditional paths can increase multiplexing, routing,
+control-logic, and resource requirements. If the alternative paths have different latencies, memory-access patterns, or resource requirements, they may
+also increase the minimum achievable initiation interval.
 
 
 
