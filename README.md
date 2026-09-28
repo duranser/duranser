@@ -18,4 +18,4 @@ The technical documentation, original diagrams, and educational material in this
 
 You are free to share and adapt the material for any purpose, including commercial use, provided that appropriate credit is given.
 
-Copyright © 2026 Serdar Duran.
+© 2026 Serdar Duran.
