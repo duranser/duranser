@@ -31,7 +31,7 @@ Iteration 2:     L M A W
 Iteration 3:       L M A W
 ```
 
-The individual iteration still has a latency of four cycles, but the processor can accept a **new iteration every cycle** once the pipeline is active.
+The individual iteration still has a latency of four cycles, but the pipelined datapath can accept a new iteration every cycle.
 
 
 ### Latency \(L\)
@@ -52,7 +52,7 @@ The **initiation interval (II)** is the number of clock cycles between the start
 - `II = 2` → a new iteration starts every two clock cycles.
 - Larger values of `II` reduce throughput.
 
-For a loop containing $N_{\text{iter}}$ iterations, the approximate execution time of a pipelined loop is:
+For a loop containing $N_{\text{iter}}$ iterations, the execution time of a pipelined loop is:
 
 $$
 C_{pipeline} = L + (N_{iter}-1)\times II
@@ -126,7 +126,7 @@ However, achieving $II = 1$ is not always possible. The achievable initiation in
 the underlying hardware architecture. Data dependencies, memory-access constraints, 
 and limited hardware resources may prevent a new iteration from starting every clock cycle.
 
-### Loop-Carried Dependencies
+## 1. Loop-Carried Dependencies
 
 A loop-carried dependency occurs when one iteration depends on a result produced by a previous iteration.
 
@@ -140,9 +140,9 @@ for (int i = 0; i < N; i++) {
 
 Iteration `i + 1` requires the updated value of `sum` produced by iteration `i`. The feedback path can limit the minimum achievable initiation interval, especially if the accumulation operator requires multiple cycles.
 
-### Memory-Port Limitations
+## 2. Memory-Port Limitations
 
-A pipelined loop may require several memory accesses in the same cycle. If the memory architecture cannot provide enough concurrent read/write ports, the tool may increase the initiation interval.
+A pipelined loop may require several memory accesses in the same cycle. If the memory architecture cannot provide enough concurrent accesses, the conflicting accesses must be distributed across multiple cycles, increasing the minimum achievable initiation interval.
 
 Typical examples include:
 
@@ -152,9 +152,9 @@ Typical examples include:
 - conflicting array accesses.
 
 
-### Resource Sharing
+## 3. Resource Sharing
 
-If several operations require the same arithmetic resource, the synthesis tool may schedule them across different cycles instead of creating additional hardware.
+If multiple operations require the same arithmetic resource during overlapping iterations, they cannot execute concurrently unless additional hardware resources are provided. Therefore, the synthesis tool may schedule them across different cycles.
 
 Examples include shared:
 
@@ -163,10 +163,9 @@ Examples include shared:
 - dividers,
 - floating-point operators.
 
-Resource sharing reduces area, but it can increase `II`.
 
 
-### Control Flow
+## 4. Control Flow
 
 Branches inside a loop may create different execution paths:
 
@@ -189,9 +188,7 @@ Loop pipelining and loop unrolling exploit different forms of parallelism.
 
 ### Loop Pipelining
 
-Loop pipelining provides **temporal parallelism** which means.
-
-Different iterations occupy different stages of the datapath at the same time [1], [2].
+Loop pipelining provides **temporal parallelism**, in which different loop iterations occupy different stages of the datapath at the same time [1], [2].
 
 ```text
 Cycle 0: I0-S0
@@ -203,9 +200,7 @@ Its primary objective is usually to reduce the initiation interval.
 
 ### Loop Unrolling
 
-Loop unrolling provides **spatial parallelism** [1], [2].
-
-Multiple operations or iterations are replicated in hardware and executed concurrently [1], [2].
+Loop unrolling provides **spatial parallelism**, in which Multiple operations or iterations are replicated in hardware and executed concurrently [1], [2].
 
 For an unroll factor of four:
 
