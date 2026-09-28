@@ -1,10 +1,10 @@
 # Technical Documents 
 
 - **CNN Hardware Acceleration**
-  - [Parallelism & Loop Unrolling](parallelism-loop-unrolling.md)
-  - [Loop Pipelining](loop-pipelining.md)
-  - [Loop Tiling](loop-tiling.md)
-  - [Dataflow and Data Reuse](dataflow-data-reuse.md)
+  - [Parallelism & Loop Unrolling](./docs/parallelism-loop-unrolling.md)
+  - [Loop Pipelining](./docs/loop-pipelining.md)
+  - [Loop Tiling](./docs/loop-tiling.md)
+  - [Dataflow and Data Reuse](./docs/dataflow-data-reuse.md)
 
 
 <br>
