@@ -11,27 +11,21 @@ Consider a loop body composed of four operations:
 3. **A** — Accumulate
 4. **W** — Write the result
 
-Assume each stage requires one clock cycle.
+Assume each stage requires one clock cycle. Without pipelining, a new iteration begins only after the previous iteration completes all four stages. However, With loop pipelining, the next iteration can begin before the previous one finishes.
 
-Without pipelining, a new iteration begins only after the previous iteration completes all four stages:
+<p align="center">
+  <img
+    src="https://github.com/user-attachments/assets/f19f877d-c16a-4a71-a868-f291a0b71d8f"
+    alt="Processing element with three multipliers"
+    width="750"
+  />
+</p>
 
-```text
-Iteration 0: L M A W
-Iteration 1:         L M A W
-Iteration 2:                 L M A W
-Iteration 3:                         L M A W
-```
 
-With loop pipelining, the next iteration can begin before the previous one finishes:
+The individual iteration still has a latency of four cycles, but the pipelined datapath can accept a new iteration every cycle and the loop therefore completes in **7 cycles instead of 16 cycles**.
 
-```text
-Iteration 0: L M A W
-Iteration 1:   L M A W
-Iteration 2:     L M A W
-Iteration 3:       L M A W
-```
+The key point is that pipelining improves **throughput**, not the **latency** of an individual iteration.
 
-The individual iteration still has a latency of four cycles, but the pipelined datapath can accept a new iteration every cycle.
 
 
 ### Latency \(L\)
@@ -65,47 +59,6 @@ where:
 - $N_{\text{iter}}$ is the number of loop iterations,
 - $II$ is the initiation interval.
 
-
-## Sequential vs. Pipelined Execution
-
-For four iterations of the four-stage loop:
-
-<p align="center">
-  <img
-    src="https://github.com/user-attachments/assets/f19f877d-c16a-4a71-a868-f291a0b71d8f"
-    alt="Processing element with three multipliers"
-    width="750"
-  />
-</p>
-
-### Sequential implementation:
-
-Each iteration requires four cycles and starts only after the previous one completes.
-
-$$
-C_{sequential} = 4 \times 4 = 16 \text{ cycles}
-$$
-
-### Pipelined implementation:
-
-Assume
-
-$$
-L = 4, \qquad II = 1, \qquad N_{iter}=4
-$$
-
-Then
-
-$$
-C_{pipeline}
-= L + (N_{iter}-1)\times II
-= 4 + (4-1)\times1
-= 7 \text{ cycles}
-$$
-
-The loop therefore completes in **7 cycles instead of 16 cycles**.
-
-The key point is that pipelining improves **throughput**, not the **latency** of an individual iteration.
 
 
 
