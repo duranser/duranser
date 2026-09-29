@@ -22,7 +22,7 @@ Assume each stage requires one clock cycle. Without pipelining, a new iteration 
 </p>
 
 
-The individual iteration still has a latency of four cycles, but the pipelined datapath can accept a new iteration every cycle and the loop therefore completes in **7 cycles instead of 16 cycles**.
+The individual iteration still has a latency of 4 cycles, but the pipelined datapath can accept a new iteration every cycle and the loop therefore completes in **7 cycles instead of 16 cycles**.
 
 The key point is that pipelining improves **throughput**, not the **latency** of an individual iteration.
 
@@ -59,13 +59,25 @@ where:
 - $N_{\text{iter}}$ is the number of loop iterations,
 - $II$ is the initiation interval.
 
+For the example above, the execution time can be calculated as
 
+$$
+C_{\text{pipeline}} = L + (N_{\text{iter}} - 1)\times II = 4 + (4 - 1)\times 1 = 7 \text{ clock cycles}
+$$
 
+Without pipelining, the four iterations are executed sequentially and require:
 
-## Pipeline Hazards
+$$
+C_{\text{sequential}} = N_{\text{iter}} \times L
+= 4 \times 4
+= 16 \text{ clock cycles}.
+$$
 
-An initiation interval of one is often the desired target in hardware accelerators because it means that 
-the datapath can accept one new loop iteration every clock cycle.
+Thus, in this example, loop pipelining reduces the total execution time from 16 clock cycles to 7 clock cycles.
+
+## Throughput & Pipeline Hazards
+
+An initiation interval of 1 is often the desired target in hardware accelerators to achieve high throughput.
 
 If the clock frequency is $f_{clk}$, then the throughput can be represented as
 
@@ -75,14 +87,14 @@ $$
 
 iterations per second.
 
-Thus, an $II$ of one provides the maximum iteration rate for a given clock
+Thus, an $II$ of 1 provides the maximum iteration rate for a given clock
 frequency. Increasing the initiation interval reduces the rate at which new
 iterations can enter the pipeline.
 
 However, achieving $II = 1$ is not always possible. The achievable initiation interval depends on the structure of the loop and 
-the underlying hardware architecture. Loop-carried dependencies, insufficient memory-access bandwidth,
-resource conflicts, and irregular control flow can restrict pipeline
-parallelism and increase the minimum achievable initiation interval.
+the underlying hardware architecture. Loop-carried dependencies, memory-access conflicts,
+resource conflicts, and irregular control flow may introduce pipeline hazards or stalls,
+resulting in a larger initiation interval.
 
 
 ## 1. Loop-Carried Dependencies
