@@ -2,7 +2,9 @@
 
 Loop tiling is a technique used to improve
 data locality and data reuse by dividing a large loop iteration space into smaller
-blocks, called tiles. For CNN layers, the data required to process the complete
+blocks, called tiles. 
+
+For CNN layers, the data required to process the complete
 iteration space may exceed the available on-chip memory capacity. Loop tiling
 addresses this limitation by partitioning the computation into smaller tiles, allowing
 the corresponding input activations, weights, and partial sums to be managed within
@@ -21,13 +23,28 @@ the available on-chip memory.
 In FPGA-based CNN designs, input activations and weights are transferred from external memory 
 to dedicated input and weight tile buffers implemented using BRAM resources. 
 These buffers provide the PE array with the data required for convolution operations. 
-The PE array performs MAC operations using dedicated DS slices and/or LUT resources. 
+
+The PE array performs MAC operations using dedicated DSP slices and/or LUT resources. 
 The resulting partial sums are stored in an on-chip buffer implemented using registers or BRAMs. 
 By keeping input activations, weights, and partial sums on-chip, 
 the architecture enables data reuse across successive computations and reduces external memory traffic.
 
+## Tiling Strategies
+
+A convolution can be tiled along different loop dimensions.
+
+| Strategy | Partitioned dimension | Main consideration |
+| --- | --- | --- |
+| **Output-channel tiling** | Output channels | Reuse input activations while processing different filter groups. |
+| **Input-channel tiling** | Input channels | Accumulate contributions from successive input-channel tiles into the same outputs. |
+| **Spatial tiling** | Output height and/or width | Reuse overlapping input regions and filter weights across output positions. |
+
+These strategies are not mutually exclusive, an FPGA accelerator may tile several dimensions simultaneously [1], [2].
+
 
 ## Output-Channel Tiling
+
+Output-channel tiling divides the output channels into smaller groups. Each group is computed using the subset of filter weights associated with its output channels.
 
 <p align="center">
   <img
@@ -39,14 +56,20 @@ the architecture enables data reuse across successive computations and reduces e
 
 <p align="center"><em>Figure 2. Output-channel Tiling.</em></p>
 
-Since the same input activations contribute to multiple output channels, retaining the input data
-in on-chip buffers while processing successive output-channel tiles promotes activation
-reuse and reduces external memory accesses. The tile size of the output-channel is $T_M$. 
-$M$ denotes the total number of output channels, and $K = \lceil M/T_M \rceil$ represents
-the number of output-channel tiles. All $K$ tiles share the same input activations.
+For a layer with $M$ output channels and an output-channel tile size of $T_M$, the number of tiles is
+
+$$
+K = \left\lceil \frac{M}{T_M} \right\rceil.
+$$
+
+All $K$ tiles share the same input activations.
+
+Different output-channel tiles use different filter weights but operate on the same input feature map. If the required input activations remain in on-chip buffers while successive output-channel tiles are processed, the accelerator can reuse them instead of fetching them repeatedly from external memory.
 
 
 ## Input-Channel Tiling
+
+Input-channel tiling partitions the input channels into smaller groups. Each input-channel group contributes a partial sum to the same output elements.
 
 <p align="center">
   <img
@@ -58,13 +81,21 @@ the number of output-channel tiles. All $K$ tiles share the same input activatio
 
 <p align="center"><em>Figure 3. Input-channel Tiling.</em></p>
 
+For $N$ input channels and an input-channel tile size of $T_C$, the number of tiles is
+
+$$
+C = \left\lceil \frac{C_{\mathrm{in}}}{T_C} \right\rceil.
+$$
+
+Each tile contains a different subset of input channels and the corresponding weight channels.
+
 Input-channel tiling allows the convolution’s accumulation operation to be performed incrementally. 
-The tile size of the input-channel is $T_M$. 
-$N$ denotes the total number of input channels, and $C = \lceil N/T_C \rceil$ represents
-the number of input-channel tiles. All $C$ tiles share the same input activations.
+All $C$ tiles contribute to the same output partial sums, which is retained in on-chip during accumulation.
 
 
 ## Spatial Tiling
+
+Spatial tiling partitions the output feature map along its height and/or width. Each output tile is computed from a corresponding region of the input feature map.
 
 Spatial tiling partitions the spatial dimensions (height and width) of a convolutional
 layer into smaller spatial tiles. In a convolution, neighboring output positions have
@@ -86,9 +117,16 @@ with a $3 \times 3$ kernel and a stride of 1. The $8 \times 8$ output feature ma
 is divided into four $4 \times 4$ tiles. Each output tile requires a corresponding $6 \times 6$ 
 input region, including the boundary pixels. 
 
-Consequently, the input regions associated with 
-neighboring output tiles overlap, allowing certain input activations to be reused across tile computations. 
+Consequently, the input regions associated with neighboring output tiles overlap, allowing certain input activations to be reused across tile computations. 
 Retaining these overlapping regions in on-chip buffers can reduce redundant external memory accesses.
+
+## Tile-Size Considerations
+
+Tile sizes are typically chosen by balancing several hardware constraints [1], [2]:
+
+- **On-chip memory capacity:** Activation, weight, and partial-sum tiles must fit within the available buffers.
+- **Memory bandwidth:** The tile schedule should promote data reuse and limit redundant off-chip transfers.
+- **PE utilization:** Tile dimensions should map efficiently to the available computational parallelism.
 
 
 ## References
