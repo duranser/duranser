@@ -1,4 +1,4 @@
-## Parallel MAC/PE Array Design
+# Parallel MAC/PE Array Design
 
 Parallel **Multiply-and-Accumulate (MAC)** and **Processing Element (PE) array** design is one of the most fundamental 
 architectural techniques for accelerating **Convolutional Neural Network (CNN)** inference. The main idea is to instantiate multiple MAC
@@ -65,7 +65,7 @@ activations, and partial sums move between PEs.
 
 
 
-## Loop Unrolling
+# Loop Unrolling
 
 A standard convolutional layer, assuming unit stride and no padding, can be represented by the following simplified sequential loop nest:
 
