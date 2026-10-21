@@ -1,4 +1,4 @@
-## Streaming
+# Streaming
 
 Streaming is a data-processing approach in which input activations are supplied to the accelerator incrementally and processed as they become available, 
 rather than requiring the entire input feature map to be loaded into local memory before computation begins.
@@ -40,7 +40,7 @@ The figure above shows a streaming architecture in a CNN accelerator:
 
 
 
-## Inter-Layer Pipelining
+# Inter-Layer Pipelining
 
 Inter-layer pipelining extends incremental data processing across consecutive CNN layers by allowing their execution to overlap. 
 A downstream layer begins processing once sufficient intermediate activations become available from the preceding layer, 
