@@ -64,7 +64,7 @@ to the assigned output activation.
 
 <p align="center">
   <img
-    src="https://github.com/user-attachments/assets/a98903f5-2c99-4c98-9f8b-1b63d3a438f0"
+    src="https://github.com/user-attachments/assets/f622aff1-645d-4c4d-85ea-0f746dbccf8a"
     alt="Output-Stationary Dataflow"
     width="600"
   />
@@ -93,7 +93,7 @@ adjacent output positions.
 
 <p align="center">
   <img
-    src="https://github.com/user-attachments/assets/b8aac8f6-2dc4-4256-9a25-029cff4ed41c"
+    src="https://github.com/user-attachments/assets/835faf58-959c-4719-8e18-80198a8939f4"
     alt="Input-Stationary Dataflow"
     width="600"
   />
