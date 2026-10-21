@@ -5,6 +5,7 @@
   - [Loop Pipelining](loop-pipelining.md)
   - [Loop Tiling](loop-tiling.md)
   - [Dataflow and Data Reuse](dataflow-data-reuse.md)
+  - [Streaming & Inter-Layer Pipelining](./docs/streaming-inter-layer-pipelining.md)
 
 
 <br>
