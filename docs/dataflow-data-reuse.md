@@ -110,7 +110,7 @@ Once all required contributions have been accumulated, the corresponding output 
 
 ## Row-Stationary Dataflow
 
-Row-stationary dataflow was introduced in the Eyeriss accelerator~\cite{chen2017eyeriss} to minimize the total energy 
+Row-stationary dataflow was introduced in the  Eyeriss accelerator [2] to minimize the total energy 
 consumed by data movement in a spatial architecture. Unlike stationary dataflows that primarily optimize the movement 
 of one data type, row-stationary dataflow attempts to exploit multiple forms of reuse across the memory hierarchy. 
 These include the filter reuse of weights, the input-feature-map reuse of activations, and the local accumulation of 
